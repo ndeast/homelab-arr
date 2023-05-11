@@ -1,0 +1,60 @@
+version: '3.3'
+services:
+    prowlarr:
+        container_name: prowlarr
+        ports:
+            - '9696:9696'
+        environment:
+            - PUID=1008
+            - PGID=1006
+            - UMASK=002
+            - TZ=US/Eastern
+        volumes:
+            - '/mnt/configs/prowlarr:/config'
+            - '/mnt/data:/data'
+        image: cr.hotio.dev/hotio/prowlarr
+        restart: always
+    qbittorrent:
+        container_name: qbittorrent
+        ports:
+            - '8282:8282'
+        environment:
+            - PUID=1009
+            - PGID=1006
+            - UMASK=002
+            - 'WEBUI_PORTS=8282/tcp,8282/udp'
+            - TZ=US/Eastern
+        volumes:
+            - '/mnt/configs/qbittorrent:/config'
+            - '/mnt/data/torrents:/data/torrents'
+        image: cr.hotio.dev/hotio/qbittorrent
+        restart: always
+    lidarr:
+        container_name: lidarr
+        ports:
+            - '8686:8686'
+        environment:
+            - PUID=1007
+            - PGID=1006
+            - UMASK=002
+            - TZ=US/Eastern
+        volumes:
+            - '/mnt/configs/lidarr:/config'
+            - '/mnt/data:/data'
+        image: cr.hotio.dev/hotio/lidarr
+        restart: always
+    sabnzbd:
+        container_name: sabnzbd
+        ports:
+            - '8080:8080'
+        environment:
+            - PUID=1010
+            - PGID=1006
+            - UMASK=002
+            - TZ=US/Eastern
+        volumes:
+            - '/mnt/configs/sabnzbd:/config'
+            - '/mnt/data/usenet:/data/usenet'
+        image: cr.hotio.dev/hotio/sabnzbd
+        restart: always
+        
