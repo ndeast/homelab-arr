@@ -13,13 +13,15 @@ useradd -m -u 1008 -s /usr/bin/bash prowlarr && usermod -aG data prowlarr
 useradd -m -u 1009 -s /usr/bin/bash qbittorrent && usermod -aG data qbittorrent
 useradd -m -u 1010 -s /usr/bin/bash sabnzbd && usermod -aG data sabnzbd
 
+mkdir -p /var/lib/configs/lidarr
+mkdir -p /var/lib/configs/prowlarr
+mkdir -p /var/lib/configs/qbittorrent
+mkdir -p /var/lib/configs/sabnzbd
 
-chown -R lidarr:lidarr /mnt/configs/lidarr
-chown -R prowlarr:prowlarr /mnt/configs/prowlarr
-chown -R qbittorrent:qbittorrent /mnt/configs/qbittorrent
-chown -R sabnzbd:sabnzbd /mnt/configs/sabnzbd
-
-(crontab -l 2>/dev/null; echo "0 3 * * SUN /root/homelab-arr/backup.sh") | crontab -
+chown -R lidarr:data /var/lib/configs/lidarr
+chown -R prowlarr:data /var/lib/configs/prowlarr
+chown -R qbittorrent:data /var/lib/configs/qbittorrent
+chown -R sabnzbd:data /var/lib/configs/sabnzbd
 
 
 docker compose pull
